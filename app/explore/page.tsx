@@ -1,7 +1,7 @@
 import React from "react";
 
-const Explore = () => {
+const page = () => {
   return <div>Explore</div>;
 };
 
-export default Explore;
+export default page;
