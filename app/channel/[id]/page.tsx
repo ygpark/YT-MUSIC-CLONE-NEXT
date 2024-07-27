@@ -1,6 +1,12 @@
 import React from "react";
 
-const page = (props) => {
+interface PageProps {
+  params: Record<string, string>;
+  searchParams: Record<string, string>;
+  // Add any other props your component expects
+}
+
+const page: React.FC<PageProps> = (props) => {
   console.log(props);
   const searchParams = JSON.stringify(props.searchParams);
   return (
