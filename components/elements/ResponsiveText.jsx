@@ -6,7 +6,7 @@ import React from "react";
 
 const ResponsiveText = ({ children }) => {
   return (
-    <div className="w-full h-screen flex items-center justify-center">
+    <div className="w-full h-screen flex">
       <div className="text-center" style={{ fontSize: "calc(100vw / 15)" }}>
         {children}
       </div>
