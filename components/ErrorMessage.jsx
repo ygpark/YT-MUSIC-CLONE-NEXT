@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { CircleLoader } from "react-spinners";
+import ResponsiveText from "./elements/ResponsiveText";
 
 const ErrorMessage = () => {
   return (
