@@ -1,22 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import ResponsiveText from "@/components/elements/ResponsiveText";
 import UserAvatar from "@/components/UserAvatar";
 import { FaChromecast } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
 import Logo from "./elements/Logo";
 import Navigator from "./elements/Navigator";
+import { cn } from "@/lib/utils";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 
 const HeaderDrawer = ({ children }) => {
   const [isOpen, SetIsOpen] = useState(false);
@@ -42,14 +34,28 @@ const HeaderDrawer = ({ children }) => {
 };
 
 const Header = ({ children }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollValue = window.scrollY;
+      setIsScrolled(scrollValue > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="relative top-0 w-full h-screen ">
+    <header className="relative top-0 w-full min-h-screen ">
       {/* Background Section */}
       <section>
         <div className="absolute w-full h-full">
           <div className="absolute top-0 w-full h-full">
             <Image
-              className="object-cover object-top w-full"
+              className="object-cover"
               alt="배경"
               src="/img/daldam music - 차.jpeg"
               fill
@@ -59,19 +65,17 @@ const Header = ({ children }) => {
         </div>
       </section>
       {/* Search Section */}
-      <section className="sticky bg-pink-700">
+      <section
+        className={cn("sticky top-0 left-0 z-10", isScrolled && "bg-black")}
+      >
         <div className="h-[64px] flex flex-row justify-between items-center p-2">
-          <article
-            className="hidden lg:flex flex-row items-center h-[42px] min-w-[480px]
-          bg-[rgba(50,50,50,50.14)] rounded-2xl px-[16px] gap-[16px] "
-          >
+          <article className="hidden lg:flex flex-row items-center h-[42px] min-w-[480px] rounded-2xl px-[16px] gap-[16px] border border-neutral-500">
             <FiSearch size={24} />
 
             <input
               type="text"
               placeholder="노래, 앨범, 아티스트, 팟캐스트 검색"
               className="h-full bg-transparent w-full"
-              value=""
             />
           </article>
           <HeaderDrawer>
@@ -87,11 +91,7 @@ const Header = ({ children }) => {
       </section>
       {/* Contents Section */}
       <section>
-        <div className="absolute">
-          <ResponsiveText>
-            Home asdfasdfasd asd asdfasdf asd as as dfasdf asdf asd as f
-          </ResponsiveText>
-        </div>
+        <div className="relative">Contents Section{children}</div>
       </section>
     </header>
   );
