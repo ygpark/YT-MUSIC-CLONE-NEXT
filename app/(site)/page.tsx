@@ -1,12 +1,11 @@
 // (site)/page.tsx
 import React from "react";
+import Category from "./components/Category";
 
-const page = () => {
+const page = async () => {
   return (
     <div className="min-h-[600px]">
-      Homepage
-      <div className="h-[500px] bg-neutral-500">HomePage</div>
-      <div className="h-[500px] bg-neutral-500">HomePage</div>
+      <Category />
     </div>
   );
 };
