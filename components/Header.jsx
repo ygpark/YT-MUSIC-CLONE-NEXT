@@ -9,6 +9,7 @@ import Logo from "./elements/Logo";
 import Navigator from "./elements/Navigator";
 import { cn } from "@/lib/utils";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import useUIState from "@/hooks/useUIState";
 
 const HeaderDrawer = ({ children }) => {
   const [isOpen, SetIsOpen] = useState(false);
@@ -35,6 +36,8 @@ const HeaderDrawer = ({ children }) => {
 
 const Header = ({ children }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { homeCategory, headerImageSrc, setHomeCategory, setHeaderImageSrc } =
+    useUIState();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,7 +60,8 @@ const Header = ({ children }) => {
             <Image
               className="object-cover"
               alt="배경"
-              src="/img/daldam music - 차.jpeg"
+              src={headerImageSrc || "/img/daldam music - 차.jpeg"}
+              //src="/img/daldam music - 차.jpeg"
               fill
             />
           </div>
@@ -68,6 +72,7 @@ const Header = ({ children }) => {
       <section
         className={cn("sticky top-0 left-0 z-10", isScrolled && "bg-black")}
       >
+        {headerImageSrc}
         <div className="h-[64px] flex flex-row justify-between items-center p-2">
           <article className="hidden lg:flex flex-row items-center h-[42px] min-w-[480px] rounded-2xl px-[16px] gap-[16px] border border-neutral-500">
             <FiSearch size={24} />
